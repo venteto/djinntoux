@@ -8,7 +8,7 @@ This package is only intended for my own personal use, install at your own risk
 Assumes `twine` is installed and an API token is stored in a `.pypirc` file:
 
 ```bash
-rm -rfv dist/ && python -m build && twine upload --verbose dist/* 
+rm -rfv dist/ && python -m build && twine upload --verbose dist/*
 ```
 
 ## Installation
