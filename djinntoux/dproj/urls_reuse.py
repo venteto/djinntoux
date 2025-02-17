@@ -10,5 +10,5 @@ admin.site.index_title = 'Site Admin Home'    # DEFAULT: "Site Administration"
 
 
 urlpatterns = [
-    path(settings.ADMIN_URL, admin.site.urls),
+    path(settings.ADMIN_PATH, admin.site.urls),
 ]
