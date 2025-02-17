@@ -1,14 +1,20 @@
+# import zoneinfo
 from django.contrib.auth.models import AbstractUser
-from django.db.models import BooleanField, CharField
+from django.core.validators import MaxLengthValidator
+from django.db import models
 from djinntoux.abstract import UUIDpk7
+from timezone_field import TimeZoneField
 
 
 class User(UUIDpk7, AbstractUser):
-    surname = CharField(blank=True, max_length=150)
-    given_names = CharField(blank=True, max_length=150)
-    surname_first = BooleanField(default=False)
     first_name = None  # type: ignore[assignment]
     last_name = None  # type: ignore[assignment]
+
+    surname = models.CharField(blank=True, max_length=150)
+    given_names = models.CharField(blank=True, max_length=150)
+    surname_first = models.BooleanField(default=False)
+
+    timezone = TimeZoneField()
 
     def get_short_name(self):
         """Return the short name for the user."""

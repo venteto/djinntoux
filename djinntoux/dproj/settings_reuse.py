@@ -38,10 +38,11 @@ BASE_APPS = [
     # --------------------------------------------------------------------------
     # extra apps
     # --------------------------------------------------------------------------
-    'djinntoux.users',                       # custom user model
+    'djinntoux.dapp_users',                  # custom user model
     'djinntoux.renames.SitesRenamedConfig',  # replaces 'django.contrib.sites',
     'django.contrib.humanize',               # to render integers in templates
     'djangoql',                              # more powerful than DataTables
+    'timezone_field',                        # for the custom user model
 
     # --------------------------------------------------------------------------
     # optional extra apps
@@ -93,11 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
+TIME_ZONE = 'UTC'
