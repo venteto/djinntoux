@@ -8,6 +8,12 @@ more grep-able than "project" without false positives. Prefixing all Django-spec
 folders with "d" is useful if, e.g., a Flask app is in the same project.
 '''
 
+import environ
+env = environ.Env()
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+
 ROOT_URLCONF = 'dproj.urls_root'
 
 WSGI_APPLICATION = 'dproj.wsgi.application'  

@@ -30,6 +30,20 @@ from djinntoux.dproj.settings_reuse import *  # noqa
 INSTALLED_APPS = BASE_APPS + []
 ```
 
+This reusable settings module expects `DJANGO_SECRET_KEY` to be set in your environment. For example, if you are just running your project locally, you could use an `.envrc` file for your development environment ...
+```bash
+...
+export 'DJANGO_SECRET_KEY'='django-insecure-321-do-not-use-this!!!'
+...
+```
+... and then use a `systemd` unit file for a mock production environment ...
+```ini
+...
+[Service]
+Environment='DJANGO_SECRET_KEY'='django-insecure-321-do-not-use-this!!!'
+...
+```
+
 #### urls_reuse
 In your project root URLconf, use like so:
 ```python
@@ -57,7 +71,7 @@ ADMIN_PATH = 'admin/'
 ```
 
 Then in templates you can use like so:
-```jinja
+```django
 <a target="_blank" href="{{ obj.get_edit_path }}">Edit</a>
 ```
 
