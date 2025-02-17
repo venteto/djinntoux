@@ -4,15 +4,24 @@ build-backend = "hatchling.build"
 
 [project]
 name = "djinntoux"
-version = "0.0.1"
+version = "0.0.2"
 description = "Generic reusable bits for Django projects"
 readme = "README.md"
 requires-python = ">= 3.13"
 dependencies = [
-    "django>=5.2a1",
-    "beautifulsoup4>=4.13.3",  # for scraping
-    "requests>=2.32.3",        # for scraping, also installs urllib3
-    "uuid6>=2024.7.10",        # for abstract models
+    "beautifulsoup4>=4.13.3",       # for scraping
+    "requests>=2.32.3",             # for scraping, also installs urllib3
+    "uuid6>=2024.7.10",             # for abstract models
+
+    "django>=5.2a1",                # standard dep
+    "django-environ>=0.12.0",       # standard dep
+    "django-htmlmin>=0.11.0",       # standard dep
+    "django-tree-queries>=0.19.0",  # standard dep
+    "djangoql>=0.18.1",             # standard dep
+    "gunicorn>=23.0.0",             # standard dep
+    "psycopg>=3.2.4",               # standard dep
+
+    "pip-autoremove>=0.10.0"        # extra
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
