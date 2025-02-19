@@ -19,7 +19,7 @@ pip install djinntoux
 ## Usage
 
 ### Environment Variables
-The following are expected to be set in your environment, a `.env` file, or a `.envrc` file;
+The following are expected to be set in your environment, a `.env` file, or a `.envrc` file:
 ```bash
 DATABASE_URL            # no default
 DJANGO_SECRET_KEY       # no default
