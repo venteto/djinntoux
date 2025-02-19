@@ -1,4 +1,4 @@
-# djinntoux
+# djinntoux 🐧
 Generic reusable bits for Django projects
 
 ## Disclaimer
