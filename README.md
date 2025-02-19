@@ -54,10 +54,12 @@ urlpatterns = [
 ```
 
 ### Abstract Models
+https://github.com/venteto/djinntoux/blob/main/djinntoux/abstract/ab_mod.py
+
 As an example in a `models.py` file:
 
 ```python
-from djinntoux.abstract import EditLink, Timestamps, UUIDpk7
+from djinntoux.abstract.ab_mod import EditLink, Timestamps, UUIDpk7
 
 ...
 
@@ -76,24 +78,26 @@ Then in templates you can use like so:
 ```
 
 ### Custom Users App
-In project settings add `djinntoux.users` to `INSTALLED_APPS` and set `AUTH_USER_MODEL = 'zy_users.User'`
+https://github.com/venteto/djinntoux/tree/main/djinntoux/dapp_users
 
-The main app files are mostly copied verbatim from [upstream](https://github.com/django/django/tree/main/django/contrib/auth), tweaked to replace the stock `first_name` and `last_name` conventions from upstream with slightly more international options, lightly inspired by the [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django/blob/master/{{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}/users/models.py#L27) project.
+In project settings add `djinntoux.dapp_users` to `INSTALLED_APPS` and set `AUTH_USER_MODEL = 'zy_users.User'`
+
+The `admin.py` file is copied verbatim from [upstream](https://github.com/django/django/tree/main/django/contrib/auth), tweaked to replace the stock `first_name` and `last_name` conventions from with slightly more international options, lightly inspired by the [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django/blob/master/{{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}/users/models.py#L27) project. The custom user model also includes a new timezone field.
 
 ### Renames
+https://github.com/venteto/djinntoux/blob/main/djinntoux/dproj/rename.py
+
 In project settings make sure `INSTALLED_APPS` reflects something akin to this:
 ```python
-    'djinntoux.renames.AuthRenamedConfig',
-    # 'django.contrib.auth',
-
-    # https://docs.djangoproject.com/en/dev/ref/contrib/sites/
-    # 'django.contrib.sites',
-    'djinntoux.renames.SitesRenamedConfig',
+    'djinntoux.dproj.rename.ContribAuth',   # replaces 'django.contrib.auth',
+    'djinntoux.dproj.rename.ContribSites',  # replaces 'django.contrib.sites',
 ```
 
 ### Scraping
+https://github.com/venteto/djinntoux/blob/main/djinntoux/utils/scrape.py
+
 ```python
-from djinntoux.scraping import get_host_and_title
+from djinntoux.utils.scrape import get_host_and_title
 ```
 
 Then use like so:
@@ -103,3 +107,6 @@ Then use like so:
             self.link_title = get_host_and_title(self)[1]
         super(Link, self).save(*args, **kwargs)
 ```
+
+## See Also
+https://github.com/venteto/djinntoux/blob/main/READMORE.md

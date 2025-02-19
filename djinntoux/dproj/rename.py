@@ -2,8 +2,8 @@
 from django.contrib.auth.apps import AuthConfig
 from django.contrib.sites.apps import SitesConfig
 
-class AuthRenamedConfig(AuthConfig):
+class ContribAuth(AuthConfig):
     verbose_name = "zzz: Auth (Contrib)"
 
-class SitesRenamedConfig(SitesConfig):
+class ContribSites(SitesConfig):
     verbose_name = "zzz: Sites (Contrib)"
