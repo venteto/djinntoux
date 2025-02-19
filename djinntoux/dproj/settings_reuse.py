@@ -18,7 +18,7 @@ env2 = environ.Env(DEBUG=(bool, False))
 
 environ.Env.read_env(BASE_DIR2 / '.env')
 
-DEBUG = env2('DEBUG')
+DEBUG = env2('DJANGO_DEBUG')
 
 SECRET_KEY = env2('DJANGO_SECRET_KEY')
 
