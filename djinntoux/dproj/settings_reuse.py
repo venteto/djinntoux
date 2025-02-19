@@ -7,16 +7,10 @@ time (as with the `django-admin startproject` default behavior). "dproj" is also
 more grep-able than "project" without false positives. Prefixing all Django-specific
 folders with "d" is useful if, e.g., a Flask app is in the same project.
 '''
-from pathlib import Path
 import environ
 
 # to not clash with similar in a specific project
-BASE_DIR2 = Path(__file__).resolve().parent.parent
-
-# to not clash with similar in a specific project
 env2 = environ.Env(DJANGO_DEBUG=(bool, False))
-
-environ.Env.read_env(BASE_DIR2 / '.env')
 
 DEBUG = env2('DJANGO_DEBUG')
 
