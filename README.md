@@ -18,6 +18,16 @@ pip install djinntoux
 
 ## Usage
 
+### Environment Variables
+The following are expected to be set in your environment, a `.env` file, or a `.envrc` file;
+```bash
+DATABASE_URL            # no default
+DJANGO_SECRET_KEY       # no default
+DJANGO_DEBUG            # defaults to false
+DJANGO_ENV_NAME         # defaults to prod
+DJANGO_ADMIN_HEADER_BG  # defaults to red
+```
+
 ### dproj
 
 #### settings_reuse
