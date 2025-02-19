@@ -2,7 +2,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxLengthValidator
 from django.db import models
-from djinntoux.abstract import UUIDpk7
+from djinntoux.abstract.ab_mod import UUIDpk7
 from timezone_field import TimeZoneField
 
 
