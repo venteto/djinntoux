@@ -118,5 +118,14 @@ Then use like so:
         super(Link, self).save(*args, **kwargs)
 ```
 
+## TODO (Includes, But Not Limited To)
+- dapp_ttags (or make dproj itself an app in addition to a project directory?)
+- templates dir
+- robots.txt view
+- error views
+- favicon view
+- aggregation util
+- abstract view and admin classes
+
 ## See Also
 https://github.com/venteto/djinntoux/blob/main/READMORE.md
