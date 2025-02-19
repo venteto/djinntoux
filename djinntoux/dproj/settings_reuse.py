@@ -7,12 +7,22 @@ time (as with the `django-admin startproject` default behavior). "dproj" is also
 more grep-able than "project" without false positives. Prefixing all Django-specific
 folders with "d" is useful if, e.g., a Flask app is in the same project.
 '''
-
+from pathlib import Path
 import environ
-env = environ.Env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('DJANGO_SECRET_KEY')
+# to not clash with similar in a specific project
+BASE_DIR2 = Path(__file__).resolve().parent.parent
+
+# to not clash with similar in a specific project
+env2 = environ.Env(DEBUG=(bool, False))
+
+environ.Env.read_env(BASE_DIR2 / '.env')
+
+DEBUG = env2('DEBUG')
+
+SECRET_KEY = env2('DJANGO_SECRET_KEY')
+
+DATABASES = { 'default': env2.db(), }
 
 ROOT_URLCONF = 'dproj.urls_root'
 
@@ -23,13 +33,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ENV_NAME = env2('DJANGO_ENV_NAME', default='prod')
+
+ADMIN_HEADER_BG = env2('DJANGO_ADMIN_HEADER_BG', default='red')
 
 BASE_APPS = [
     # --------------------------------------------------------------------------
-    # startproject appS
+    # startproject apps
     # --------------------------------------------------------------------------
     'django.contrib.admin',
-    'djinntoux.renames.AuthRenamedConfig',  # replaces 'django.contrib.auth',
+    'djinntoux.dproj.rename.ContribAuth',    # replaces 'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -39,7 +52,7 @@ BASE_APPS = [
     # extra apps
     # --------------------------------------------------------------------------
     'djinntoux.dapp_users',                  # custom user model
-    'djinntoux.renames.SitesRenamedConfig',  # replaces 'django.contrib.sites',
+    'djinntoux.dproj.rename.ContribSites',   # replaces 'django.contrib.sites',
     'django.contrib.humanize',               # to render integers in templates
     'djangoql',                              # more powerful than DataTables
     'timezone_field',                        # for the custom user model
@@ -71,8 +84,24 @@ MIDDLEWARE = [
 ]
 
 
-# TODO: add templates here after cleaning up reusable context processors;
-# then add note to preamble above
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+
+                # extra:
+                'djinntoux.dproj.context_reuse.general'
+            ],
+        },
+    },
+]
 
 
 # Password validation
@@ -94,7 +123,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
+
 LANGUAGE_CODE = 'en-us'
+
 USE_I18N = True
+
 USE_TZ = True
+
 TIME_ZONE = 'UTC'
