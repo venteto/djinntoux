@@ -14,7 +14,7 @@ import environ
 BASE_DIR2 = Path(__file__).resolve().parent.parent
 
 # to not clash with similar in a specific project
-env2 = environ.Env(DEBUG=(bool, False))
+env2 = environ.Env(DJANGO_DEBUG=(bool, False))
 
 environ.Env.read_env(BASE_DIR2 / '.env')
 
