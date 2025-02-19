@@ -120,7 +120,9 @@ Then use like so:
 
 ## TODO (Includes, But Not Limited To)
 - dapp_ttags (or make dproj itself an app in addition to a project directory?)
-- templates dir
+- templates dir (including admin overrides)
+- static files? or just link to a pseudo-CDN in base template?
+    - compressor?
 - robots.txt view
 - error views
 - favicon view
