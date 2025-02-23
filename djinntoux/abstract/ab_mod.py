@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from tree_queries.models import TreeNode
 from uuid6 import uuid7
 
 
@@ -32,6 +33,18 @@ class Timestamps(models.Model):
 
 class UUIDpk7(models.Model):
     uuid_pk_v7 = models.UUIDField(primary_key=True, editable=False, default=uuid7)
+
+    class Meta:
+        abstract = True
+
+
+class U7TimeEdit(UUIDpk7, Timestamps, EditLink):
+
+    class Meta:
+        abstract = True
+
+
+class U7TimeEditTree(UUIDpk7, Timestamps, EditLink, TreeNode):
 
     class Meta:
         abstract = True
