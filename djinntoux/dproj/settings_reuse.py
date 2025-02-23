@@ -10,13 +10,18 @@ folders with "d" is useful if, e.g., a Flask app is in the same project.
 import environ
 
 # to not clash with similar in a specific project
-env2 = environ.Env(DJANGO_DEBUG=(bool, False))
+env2 = environ.Env(DEBUG=(bool, False))
 
-DEBUG = env2('DJANGO_DEBUG')
+DEBUG = env2('DEBUG')
 
 SECRET_KEY = env2('DJANGO_SECRET_KEY')
 
-DATABASES = { 'default': env2.db(), }
+if DEBUG:
+    DATABASES = { 'default': env2.db_url('DJANGO_DB_DEV_URL'), }
+    ADMIN_HEADER_BG = '#35b027'  # darker green
+else:
+    DATABASES = { 'default': env2.db_url('DATABASE_URL'), }
+    ADMIN_HEADER_BG = '#c62826'  # darker red
 
 ROOT_URLCONF = 'dproj.urls_root'
 
@@ -28,8 +33,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ENV_NAME = env2('DJANGO_ENV_NAME', default='prod')
-
-ADMIN_HEADER_BG = env2('DJANGO_ADMIN_HEADER_BG', default='red')
 
 BASE_APPS = [
     # --------------------------------------------------------------------------
