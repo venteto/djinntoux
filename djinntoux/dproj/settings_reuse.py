@@ -18,10 +18,10 @@ SECRET_KEY = env2('DJANGO_SECRET_KEY')
 
 if DEBUG:
     DATABASES = { 'default': env2.db_url('DJANGO_DB_DEV_URL'), }
-    ADMIN_HEADER_BG = '#319b25'  # darker green
+    ADMIN_HEADER_BG = '#008c00'  # darker green
 else:
     DATABASES = { 'default': env2.db_url('DATABASE_URL'), }
-    ADMIN_HEADER_BG = '#bf2d2b'  # darker red
+    ADMIN_HEADER_BG = '#8c0000'  # darker red
 
 ROOT_URLCONF = 'dproj.urls_root'
 
