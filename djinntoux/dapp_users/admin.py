@@ -84,14 +84,43 @@ class UserAdmin(admin.ModelAdmin):
     form = UserChangeForm
     add_form = AdminUserCreationForm
     change_password_form = AdminPasswordChangeForm
-    list_display = ("username", "timezone", "email", "surname", "given_names", "is_staff", "get_full_name")
+
+    # CUSTOM ORDER
+    list_display = (
+        "timezone",          # added
+        "is_staff",
+        "is_superuser",      # added
+        "username",
+        "email",
+        "surname",           # added
+        "given_names",       # added
+        "get_full_name"      # added
+
+    )
+    list_display_links = ['username']  # added
+
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("username", "surname", "given_names", "email")
-    ordering = ("username",)
+    
+    # ordering = ("-is_superuser", "username",)  # disabled in favor of model
+    
     filter_horizontal = (
         "groups",
         "user_permissions",
     )
+
+    # --------------------------------------------------------------------------
+    # CUSTOM CHANGE LIST DECORATORS
+    # these retain sortability, but they do not retain default widget
+    # --------------------------------------------------------------------------
+
+    '''
+    @admin.display(description='Super', ordering='is_superuser')
+    def rename_superuser(self, obj):
+        return obj.is_superuser
+    '''
+
+    # --------------------------------------------------------------------------
 
     def get_fieldsets(self, request, obj=None):
         if not obj:
