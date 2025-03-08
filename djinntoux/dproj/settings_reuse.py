@@ -8,9 +8,13 @@ more grep-able than "project" without false positives. Prefixing all Django-spec
 folders with "d" is useful if, e.g., a Flask app is in the same project.
 '''
 import environ
+from django.conf.locale.en import formats as en_formats
+
 
 # to not clash with similar in a specific project
 env2 = environ.Env(DEBUG=(bool, False))
+
+en_formats.DATETIME_FORMAT = 'Y-m-d • H:i:s e'
 
 DEBUG = env2('DEBUG')
 
@@ -50,6 +54,7 @@ BASE_APPS = [
     # --------------------------------------------------------------------------
     # extra apps
     # --------------------------------------------------------------------------
+    'djinntoux.dapp_ttags',                  # custom templatetags
     'djinntoux.dapp_users',                  # custom user model
     'djinntoux.dproj.rename.ContribSites',   # replaces 'django.contrib.sites',
     'django.contrib.humanize',               # to render integers in templates
@@ -78,8 +83,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'htmlmin.middleware.HtmlMinifyMiddleware',                          # added
     'htmlmin.middleware.MarkRequestMiddleware',                         # added
+
+    'dproj.middelware.TimezoneMiddleware'                               # added
 ]
 
 

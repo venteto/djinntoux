@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "djinntoux"
-version = "0.0.5.11"
+version = "0.0.6.2"
 description = "Generic reusable bits for Django projects"
 readme = "README.md"
 requires-python = ">= 3.13"
@@ -12,6 +12,8 @@ dependencies = [
     "beautifulsoup4>=4.13.3",       # for scraping
     "requests>=2.32.3",             # for scraping, also installs urllib3
     "uuid6>=2024.7.10",             # for abstract models
+
+    "Markdown>=3.7",                # for dapp_ttags
 
     "django>=5.2a1",                # standard dep
     "django-environ>=0.12.0",       # standard dep
