@@ -87,7 +87,7 @@ MIDDLEWARE = [
     'htmlmin.middleware.HtmlMinifyMiddleware',                          # added
     'htmlmin.middleware.MarkRequestMiddleware',                         # added
 
-    'dproj.middelware.TimezoneMiddleware'                               # added
+    'djinntoux.dproj.middleware.TimezoneMiddleware'                     # added
 ]
 
 
