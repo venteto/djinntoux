@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "djinntoux"
-version = "0.0.6.4"
+version = "0.0.8"
 description = "Generic reusable bits for Django projects"
 readme = "README.md"
 requires-python = ">= 3.13"
@@ -12,8 +12,6 @@ dependencies = [
     "beautifulsoup4>=4.13.3",       # for scraping
     "requests>=2.32.3",             # for scraping, also installs urllib3
     "uuid6>=2024.7.10",             # for abstract models
-
-    "Markdown>=3.7",                # for dapp_ttags
 
     "django>=5.2a1",                # standard dep
     "django-environ>=0.12.0",       # standard dep
@@ -23,9 +21,12 @@ dependencies = [
     "gunicorn>=23.0.0",             # standard dep
     "psycopg>=3.2.4",               # standard dep
 
-    "django-timezone-field>=7.1",   # for user model but no autocomplete
+    # these packages do not need djinntoux as a dep, as they are included here
+    "vto-time>=0.0.7",              # standard dep
+    "vto-users>=0.0.2",             # standard dep
+    "vto-frontend>=0.0.3",          # standard dep
 
-    "pip-autoremove>=0.10.0"        # extra
+    "pip-autoremove>=0.10.0",       # extra
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]

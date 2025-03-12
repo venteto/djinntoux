@@ -16,6 +16,11 @@ env2 = environ.Env(DEBUG=(bool, False))
 
 en_formats.DATETIME_FORMAT = 'Y-m-d • H:i:s e'
 
+TSFMT = '%Y-%m-%d %H:%M:%S %z %Z'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 DEBUG = env2('DEBUG')
 
 SECRET_KEY = env2('DJANGO_SECRET_KEY')
@@ -44,8 +49,11 @@ BASE_APPS = [
     # --------------------------------------------------------------------------
     # startproject apps
     # --------------------------------------------------------------------------
+    'vto_frontend',                   # includes admin override templates
     'django.contrib.admin',
-    'djinntoux.dproj.rename.ContribAuth',    # replaces 'django.contrib.auth',
+    
+    'djinntoux.rename.ContribAuth',   # replaces 'django.contrib.auth',
+    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -54,12 +62,11 @@ BASE_APPS = [
     # --------------------------------------------------------------------------
     # extra apps
     # --------------------------------------------------------------------------
-    'djinntoux.dapp_ttags',                  # custom templatetags
-    'djinntoux.dapp_users',                  # custom user model
-    'djinntoux.dproj.rename.ContribSites',   # replaces 'django.contrib.sites',
-    'django.contrib.humanize',               # to render integers in templates
-    'djangoql',                              # more powerful than DataTables
-    'timezone_field',                        # for the custom user model
+    'vto_time',                       # required by custom user model
+    'vto_users',                      # custom user model
+    'djinntoux.rename.ContribSites',  # replaces 'django.contrib.sites',
+    'django.contrib.humanize',        # to render integers in templates
+    'djangoql',                       # more powerful than DataTables
 
     # --------------------------------------------------------------------------
     # optional extra apps
@@ -73,7 +80,7 @@ BASE_APPS = [
 # Always use a minimal custom user app for future flexibility.
 # OCD note: the database column has a different label than the actual app name
 # (for sorting in psql), which must be used here:
-AUTH_USER_MODEL = 'zy_users.User'
+AUTH_USER_MODEL = 'vto_users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,10 +91,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'htmlmin.middleware.HtmlMinifyMiddleware',                          # added
-    'htmlmin.middleware.MarkRequestMiddleware',                         # added
-
-    'djinntoux.dproj.middleware.TimezoneMiddleware'                     # added
+    'htmlmin.middleware.HtmlMinifyMiddleware',    # added
+    'htmlmin.middleware.MarkRequestMiddleware',   # added
+    'vto_frontend.middleware.TimezoneMiddleware'  # added
 ]
 
 
@@ -104,7 +110,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # extra:
-                'djinntoux.dproj.context_reuse.general'
+                'vto_frontend.context_processors.general'
             ],
         },
     },

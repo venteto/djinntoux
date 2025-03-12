@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 
 '''  admin/base_site.html override template also affects the title '''
@@ -11,4 +11,6 @@ admin.site.index_title = 'Site Admin Home'    # DEFAULT: "Site Administration"
 
 urlpatterns = [
     path(settings.ADMIN_PATH, admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('vto_time.urls')),
 ]
