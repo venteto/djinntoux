@@ -28,9 +28,7 @@ DJANGO_ENV_NAME         # defaults to prod
 DJANGO_ADMIN_HEADER_BG  # defaults to red
 ```
 
-### dproj
-
-#### settings_reuse
+### settings2
 In your own project settings, use like so:
 ```python
 from djinntoux.dproj.settings_reuse import *  # noqa
@@ -54,7 +52,7 @@ Environment='DJANGO_SECRET_KEY'='django-insecure-321-do-not-use-this!!!'
 ...
 ```
 
-#### urls_reuse
+### urls2
 In your project root URLconf, use like so:
 ```python
 urlpatterns = [
@@ -92,8 +90,6 @@ https://github.com/venteto/djinntoux/tree/main/djinntoux/dapp_users
 
 In project settings add `djinntoux.dapp_users` to `INSTALLED_APPS` and set `AUTH_USER_MODEL = 'zy_users.User'`
 
-The `admin.py` file is copied verbatim from [upstream](https://github.com/django/django/tree/main/django/contrib/auth), tweaked to replace the stock `first_name` and `last_name` conventions from with slightly more international options, lightly inspired by the [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django/blob/master/{{cookiecutter.project_slug}}/{{cookiecutter.project_slug}}/users/models.py#L27) project. The custom user model also includes a new timezone field.
-
 ### Renames
 https://github.com/venteto/djinntoux/blob/main/djinntoux/dproj/rename.py
 
@@ -119,8 +115,6 @@ Then use like so:
 ```
 
 ## TODO (Includes, But Not Limited To)
-- dapp_ttags (or make dproj itself an app in addition to a project directory?)
-- templates dir (including admin overrides)
 - static files? or just link to a pseudo-CDN in base template?
     - compressor?
 - robots.txt view

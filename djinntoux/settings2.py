@@ -28,11 +28,13 @@ SECRET_KEY = env2('DJANGO_SECRET_KEY')
 if DEBUG:
     DATABASES = { 'default': env2.db_url('DJANGO_DB_DEV_URL'), }
     ADMIN_HEADER_BG = '#008c00'  # darker green
+    LOG_FILE = 'logs/dev.log'         # see LOGGING below
 else:
     DATABASES = { 'default': env2.db_url('DATABASE_URL'), }
     ADMIN_HEADER_BG = '#8c0000'  # darker red
+    LOG_FILE = 'logs/prod.log'
 
-ROOT_URLCONF = 'dproj.urls_root'
+ROOT_URLCONF = 'dproj.uroot'
 
 WSGI_APPLICATION = 'dproj.wsgi.application'  
 
@@ -46,14 +48,13 @@ ADMIN_PATH = env2('DJANGO_ADMIN_PATH', default='admin/')
 ENV_NAME = env2('DJANGO_ENV_NAME', default='prod')
 
 BASE_APPS = [
+    'vto_core',                      # admin templates, custom user model, etc
+
     # --------------------------------------------------------------------------
     # startproject apps
     # --------------------------------------------------------------------------
-    'vto_frontend',                   # includes admin override templates
     'django.contrib.admin',
-    
     'djinntoux.rename.ContribAuth',   # replaces 'django.contrib.auth',
-    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -62,8 +63,6 @@ BASE_APPS = [
     # --------------------------------------------------------------------------
     # extra apps
     # --------------------------------------------------------------------------
-    'vto_time',                       # required by custom user model
-    'vto_users',                      # custom user model
     'djinntoux.rename.ContribSites',  # replaces 'django.contrib.sites',
     'django.contrib.humanize',        # to render integers in templates
     'djangoql',                       # more powerful than DataTables
@@ -80,7 +79,7 @@ BASE_APPS = [
 # Always use a minimal custom user app for future flexibility.
 # OCD note: the database column has a different label than the actual app name
 # (for sorting in psql), which must be used here:
-AUTH_USER_MODEL = 'vto_users.User'
+AUTH_USER_MODEL = 'vto_core.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -93,14 +92,16 @@ MIDDLEWARE = [
 
     'htmlmin.middleware.HtmlMinifyMiddleware',    # added
     'htmlmin.middleware.MarkRequestMiddleware',   # added
-    'vto_frontend.middleware.TimezoneMiddleware'  # added
+    'djinntoux.middleware.TimezoneMiddleware'  # added
 ]
 
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'djinntoux.templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,7 +111,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # extra:
-                'vto_frontend.context_processors.general'
+                'djinntoux.context_processors.general'
             ],
         },
     },
@@ -144,3 +145,38 @@ USE_I18N = True
 USE_TZ = True
 
 TIME_ZONE = 'UTC'
+
+# ------------------------------------------------------------------------------
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILE,
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'MYAPP': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}

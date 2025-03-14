@@ -12,5 +12,5 @@ admin.site.index_title = 'Site Admin Home'    # DEFAULT: "Site Administration"
 urlpatterns = [
     path(settings.ADMIN_PATH, admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('vto_time.urls')),
+    path('', include('vto_core.urls')),
 ]
